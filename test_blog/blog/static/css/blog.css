@@ -4,10 +4,24 @@
     margin-bottom: 10px;
     font-weight: 600;
     }
+
 .bigbrand{
-    font-size: 1.8em;
+    font-size: 2em;
     }
+
 .centerstage{
     margin-left: auto;
     margin-rigt: auto;
+    }
+
+.posttittle{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.3em;
+    font-weight: 400;
+    }
+
+.postcontent{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1em;
+    font-weight: 300;
     }
