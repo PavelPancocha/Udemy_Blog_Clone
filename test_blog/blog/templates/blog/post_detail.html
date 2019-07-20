@@ -4,34 +4,34 @@
 <h1 class="posttitle">{{ post.title }}</h1>
 {% if post.published_date %}
     <div class="date postdate">
-        {{ post.published_date }}
+        {{ post.published_date|date:"D, d M, Y" }}
     </div>
 {% else %}
-    <a class="btn btn-primary" href="{% url 'post_publish' pk=post.pk %}" role="button">Publish</a>
+    <a class="btn btn-primary" href="{% url 'blog:post_publish' pk=post.pk %}" role="button">Publish</a>
 {% endif %}
 
 
-    {% if user.is_authenticated %}
-        <a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}" role="button">
+    {% if user.is_staff %}
+        <a class="btn btn-primary" href="{% url 'blog:post_edit' pk=post.pk %}" role="button">
             <i class="fas fa-edit"></i> Edit</a>
-        <a class="btn btn-primary" href="{% url 'post_delete' pk=post.pk %}" role="button">
+        <a class="btn btn-primary" href="{% url 'blog:post_delete' pk=post.pk %}" role="button">
             <i class="fas fa-trash-alt"></i> Delete</a>
 
     {% endif %}
 
 <div class="container postcontent">
-    <p class="postcontent">{{ post.text|linebreaks|safe }}</p>
+    <p class="postcontent">{{ post.text|safe|linebreaks }}</p>
 </div>
 
 <div class="container comments">
-    <a class="btn btn-primary" href="{% url 'add_comment_to_post' pk=post.pk %}" role="button">Add Comment</a>
+    <a class="btn btn-primary" href="{% url 'blog:add_comment_to_post' pk=post.pk %}" role="button">Add Comment</a>
     {% for comment in post.comments.all %}
          {% if user.is_authenticated or comment.approved_comment %}
 
               {{ comment.created_date }}
               {% if not comment.approved_comment %}
-                  <a class="btn btn-primary" href="{% url 'comment_remove' pk=comment.pk %}"><span class="fa fa-remove"></span></a>
-                  <a class="btn btn-primary" href="{% url 'comment_approve' pk=comment.pk %}"><span class="fa fa-check"></span></a>
+                  <a class="btn btn-primary" href="{% url 'blog:comment_delete' pk=comment.pk %}"><span class="fa fa-remove"></span></a>
+                  <a class="btn btn-primary" href="{% url 'blog:comment_approve' pk=comment.pk %}"><span class="fa fa-check"></span></a>
               {% endif %}
 
           <p>{{ comment.text|safe|linebreaks }}</p>
